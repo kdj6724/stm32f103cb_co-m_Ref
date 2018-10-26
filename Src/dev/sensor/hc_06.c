@@ -1,13 +1,13 @@
 // hc_06.c
 // kdj6724@naver.com
 // 2018-10-26
-#include "stm32f1xx_hal.h"
+#include <string.h>
 #include "hc_06.h"
 
 UART_HandleTypeDef* hc06UART_ = NULL;
 uint8_t rxbuf_[2];
 
-int hc06_send_atcmd(char* data, size_t len) {
+int hc06_send_atcmd(uint8_t* data, int len) {
 	HAL_StatusTypeDef status;
   if (hc06UART_ == NULL) {
     printf("[hc-06] uart is NULL(%d)\n", __LINE__);
@@ -24,10 +24,10 @@ int hc06_init(UART_HandleTypeDef* uart) {
   hc06_set_bluetoothname("kdj", 3);
   hc06_set_pin("1111", 4);
   HAL_UART_Receive_IT(uart, rxbuf_, 1);
+  return 0;
 }
 
 int hc06_receive_byte(uint8_t rx) {
-  char* ptr = NULL;
   int res = HC06_CMD0;
 
   if (hc06UART_ == NULL) {
@@ -46,22 +46,22 @@ int hc06_receive_byte(uint8_t rx) {
 
 int hc06_set_baudrate(int val) {
   uint8_t cmd[32];
-  memset(cmd, 0, size_t(cmd));
-  sprintf(cmd, "%sBAUD%d",HC06_ATCMD_PREFIX, val);
-  return hc06_send_atcmd(cmd, strlen(cmd));
+  memset(cmd, 0, sizeof(cmd));
+  sprintf((char*)cmd, "%sBAUD%d",HC06_ATCMD_PREFIX, val);
+  return hc06_send_atcmd(cmd, strlen((char*)cmd));
 }
 
-int hc06_set_bluetoothname(char* name, size_t len) {
+int hc06_set_bluetoothname(char* name, int len) {
   uint8_t cmd[32];
-  memset(cmd, 0, size_t(cmd));
-  sprintf(cmd, "%sNAME%s",HC06_ATCMD_PREFIX, name);
-  return hc06_send_atcmd(cmd, strlen(cmd));
+  memset(cmd, 0, sizeof(cmd));
+  sprintf((char*)cmd, "%sNAME%s",HC06_ATCMD_PREFIX, name);
+  return hc06_send_atcmd(cmd, strlen((char*)cmd));
 }
 
-int hc06_set_pin(char* pin, size_t len) {
+int hc06_set_pin(char* pin, int len) {
   uint8_t cmd[32];
-  memset(cmd, 0, size_t(cmd));
-  sprintf(cmd, "%sPIN%s",HC06_ATCMD_PREFIX, pin);
-  return hc06_send_atcmd(cmd, strlen(cmd));
+  memset(cmd, 0, sizeof(cmd));
+  sprintf((char*)cmd, "%sPIN%s",HC06_ATCMD_PREFIX, pin);
+  return hc06_send_atcmd(cmd, strlen((char*)cmd));
 }
 

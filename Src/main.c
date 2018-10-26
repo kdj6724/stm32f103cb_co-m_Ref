@@ -41,7 +41,7 @@
 #include "stm32f1xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "dev/sensor/hc_06.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -84,6 +84,9 @@ int _write(int file, char* data, int len) {
 	HAL_StatusTypeDef status =
 		HAL_UART_Transmit(&huart1, (uint8_t*)data, len, 1000);
 	return (status == HAL_OK ? len : 0);
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 }
 /* USER CODE END 0 */
 

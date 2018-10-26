@@ -1,6 +1,8 @@
 // hc_06.h
 // kdj6724@naver.com
 // 2018-10-26
+#include "stm32f1xx_hal.h"
+
 #ifndef DEV_SENSOR_HC_06_H_
 #define DEV_SENSOR_HC_06_H_
 
@@ -31,13 +33,13 @@ enum hc06_cmd {
   HC06_CMD1,
   HC06_CMD2,
   HC06_CMD3,
-}
+};
 
 int hc06_init(UART_HandleTypeDef* uart);
 int hc06_receive_byte(uint8_t rx);
 int hc06_set_baudrate(int val);
-int hc06_set_bluetoothname(char* name, size_t len);
-int hc06_set_pin(char* pin, size_t len);
+int hc06_set_bluetoothname(char* name, int len);
+int hc06_set_pin(char* pin, int len);
 
 #ifdef __cplusplus
 }
