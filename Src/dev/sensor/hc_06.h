@@ -36,7 +36,7 @@ enum hc06_cmd {
 };
 
 int hc06_init(UART_HandleTypeDef* uart);
-int hc06_receive_byte(uint8_t rx);
+int hc06_receive_byte(void);
 int hc06_set_baudrate(int val);
 int hc06_set_bluetoothname(char* name, int len);
 int hc06_set_pin(char* pin, int len);

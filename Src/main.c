@@ -87,6 +87,7 @@ int _write(int file, char* data, int len) {
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+	hc06_receive_byte();
 }
 /* USER CODE END 0 */
 
@@ -129,7 +130,8 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-
+  hc06_init(&huart3);
+  //hc06_init(&huart1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -348,7 +350,7 @@ static void MX_USART3_UART_Init(void)
 {
 
   huart3.Instance = USART3;
-  huart3.Init.BaudRate = 115200;
+  huart3.Init.BaudRate = 9600;
   huart3.Init.WordLength = UART_WORDLENGTH_8B;
   huart3.Init.StopBits = UART_STOPBITS_1;
   huart3.Init.Parity = UART_PARITY_NONE;
